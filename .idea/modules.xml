@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/oolab.iml" filepath="$PROJECT_DIR$/.idea/modules/oolab.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/oolab.main.iml" filepath="$PROJECT_DIR$/.idea/modules/oolab.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/oolab.test.iml" filepath="$PROJECT_DIR$/.idea/modules/oolab.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tests/oolab.tests.iml" filepath="$PROJECT_DIR$/.idea/modules/tests/oolab.tests.iml" />
     </modules>
   </component>
 </project>

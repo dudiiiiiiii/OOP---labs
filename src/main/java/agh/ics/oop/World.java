@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class World {
@@ -43,12 +44,20 @@ public class World {
         System.out.println("System zakończył działanie");
 
         Vector2d position1 = new Vector2d(1,2);
+        System.out.println(new Vector2d(1,0).upperRight(new Vector2d(0,2)));
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
         System.out.println(position1.add(position2));
         System.out.println(MapDirection.EAST.toUnitVector());
-        MapDirectionTest.test_next();
-        MapDirectionTest.test_previous();
+//        MapDirectionTest_test.test_next();
+//        MapDirectionTest_test.test_previous();
+//        Animal bober = new Animal();
+//        bober.move(MoveDirection.RIGHT);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        System.out.println(bober.toString());
     }
 }
