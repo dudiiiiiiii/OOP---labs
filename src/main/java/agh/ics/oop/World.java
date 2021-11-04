@@ -43,6 +43,7 @@ public class World {
         run(change(args));
         System.out.println("System zakończył działanie");
 
+        System.out.println("----------------------");
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(new Vector2d(1,0).upperRight(new Vector2d(0,2)));
         System.out.println(position1);
@@ -50,14 +51,27 @@ public class World {
         System.out.println(position2);
         System.out.println(position1.add(position2));
         System.out.println(MapDirection.EAST.toUnitVector());
-//        MapDirectionTest_test.test_next();
-//        MapDirectionTest_test.test_previous();
-//        Animal bober = new Animal();
-//        bober.move(MoveDirection.RIGHT);
-//        bober.move(MoveDirection.FORWARD);
-//        bober.move(MoveDirection.FORWARD);
-//        bober.move(MoveDirection.FORWARD);
-//        bober.move(MoveDirection.FORWARD);
-//        System.out.println(bober.toString());
+        System.out.println("----------------------");
+
+        Animal bober = new Animal();
+        System.out.println(bober.toString());
+        bober.move(MoveDirection.RIGHT);
+        bober.move(MoveDirection.FORWARD);
+        bober.move(MoveDirection.FORWARD);
+        bober.move(MoveDirection.FORWARD);
+        bober.move(MoveDirection.FORWARD);
+        System.out.println(bober.toString());
+        System.out.println("----------------------");
+
+
+        Animal testowy = new Animal();
+        String[] xdd = {"f", "f", "l", "b", "b", "b", "b", "r", "r", "l"};
+        for(MoveDirection x: OptionsParser.parse(xdd)) {
+            testowy.move(x);
+            System.out.println(testowy.toString());
+
+        }
+
+
     }
 }
