@@ -43,35 +43,44 @@ public class World {
         run(change(args));
         System.out.println("System zakończył działanie");
 
+//        System.out.println("----------------------");
+//        Vector2d position1 = new Vector2d(1,2);
+//        System.out.println(new Vector2d(1,0).upperRight(new Vector2d(0,2)));
+//        System.out.println(position1);
+//        Vector2d position2 = new Vector2d(-2,1);
+//        System.out.println(position2);
+//        System.out.println(position1.add(position2));
+//        System.out.println(MapDirection.EAST.toUnitVector());
+//        System.out.println("----------------------");
+//
+//        Animal bober = new Animal();
+//        System.out.println(bober.toString());
+//        bober.move(MoveDirection.RIGHT);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        bober.move(MoveDirection.FORWARD);
+//        System.out.println(bober.toString());
+//        System.out.println("----------------------");
+//
+//
+//        Animal testowy = new Animal();
+//        String[] xdd = {"f", "f", "l", "b", "b", "b", "b", "r", "r", "l"};
+//        for(MoveDirection x: OptionsParser.parse(xdd)) {
+//            testowy.move(x);
+//            System.out.println(testowy.toString());
+//        }
+
         System.out.println("----------------------");
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(new Vector2d(1,0).upperRight(new Vector2d(0,2)));
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-        System.out.println(MapDirection.EAST.toUnitVector());
-        System.out.println("----------------------");
+        args = new String[]{"f", "b", "r", "l" ,"f", "f", "r", "r", "f", "f","f", "f","f", "f","f", "f"};
+        List<MoveDirection> directions = new OptionsParser().parse(args);
 
-        Animal bober = new Animal();
-        System.out.println(bober.toString());
-        bober.move(MoveDirection.RIGHT);
-        bober.move(MoveDirection.FORWARD);
-        bober.move(MoveDirection.FORWARD);
-        bober.move(MoveDirection.FORWARD);
-        bober.move(MoveDirection.FORWARD);
-        System.out.println(bober.toString());
-        System.out.println("----------------------");
-
-
-        Animal testowy = new Animal();
-        String[] xdd = {"f", "f", "l", "b", "b", "b", "b", "r", "r", "l"};
-        for(MoveDirection x: OptionsParser.parse(xdd)) {
-            testowy.move(x);
-            System.out.println(testowy.toString());
-
-        }
-
+        IWorldMap map = new RectangularMap(10, 5);
+        List<Vector2d> positions = new ArrayList<>();
+        positions.add(new Vector2d(2,2));
+        positions.add(new Vector2d(3,4));
+        IEngine enegine = new SimulationEngine(directions, (RectangularMap) map, positions);
+        enegine.run();
 
     }
 }
