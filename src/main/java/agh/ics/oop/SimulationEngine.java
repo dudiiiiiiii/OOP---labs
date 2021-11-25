@@ -4,13 +4,13 @@ import java.util.*;
 
 public class SimulationEngine implements IEngine{
     private List<MoveDirection> moves;
-    private RectangularMap map;
+    private IWorldMap map;
     private List<Vector2d> starters;
     private List<Animal> animals = new ArrayList<>();
 
     public SimulationEngine(List<MoveDirection> moves, IWorldMap map, List<Vector2d> starters) {
         this.moves = moves;
-        this.map = (RectangularMap) map;
+        this.map = map;
         this.starters = starters;
     }
 
@@ -34,6 +34,5 @@ public class SimulationEngine implements IEngine{
             this.animals.get(i%k).move(moves1.get(i));
 
         }
-        this.map.toString();
     }
 }

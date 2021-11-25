@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RectangularMap implements IWorldMap{
+public class RectangularMap extends AbstractWorldMap implements IWorldMap {
     private Vector2d lowerLeft;
     private Vector2d upperRight;
     private List<Animal> animals = new ArrayList<>();
@@ -17,12 +17,6 @@ public class RectangularMap implements IWorldMap{
         return this.animals;
     }
 
-//    public void show(){
-//        System.out.println(this.height);
-//        System.out.println(this.width);
-//        System.out.println(this.animals);
-//    }
-
     public String toString(){
 
         MapVisualizer mapcos = new MapVisualizer(this);
@@ -32,36 +26,41 @@ public class RectangularMap implements IWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position) && position.follows(this.lowerLeft) && position.precedes(this.upperRight);
+        return super.canMoveTo(position) && position.precedes(this.upperRight);
     }
+//    @Override
+//    public boolean canMoveTo(Vector2d position) {
+//        return !isOccupied(position) && position.follows(this.lowerLeft) && position.precedes(this.upperRight);
+//    }
+//
+//    @Override
+//    public boolean place(Animal animal) {
+//        if (canMoveTo(animal.getPosition())) {
+//            this.animals.add(animal);
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isOccupied(Vector2d position) {
+//        for (Animal animal : this.animals) {
+//            if (animal.isAt(position)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public Object objectAt(Vector2d position) {
+//
+//        for(Animal animal: this.animals) {
+//            if(animal.isAt(position)) {
+//                return animal;
+//            }
+//        }
+//        return null;
+//    }
 
-    @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            this.animals.add(animal);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        for (Animal animal : this.animals) {
-            if (animal.isAt(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Object objectAt(Vector2d position) {
-
-        for(Animal animal: this.animals) {
-            if(animal.isAt(position)) {
-                return animal;
-            }
-        }
-        return null;
-    }
 }
