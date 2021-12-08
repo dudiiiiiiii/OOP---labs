@@ -74,11 +74,13 @@ public class World {
         System.out.println("----------------------");
         args = new String[]{"f", "b", "r", "l" ,"f", "f", "r", "r", "f", "f","f", "f","f", "f","f", "f"};
         List<MoveDirection> directions = new OptionsParser().parse(args);
+        //System.out.println(directions);
 
         IWorldMap map = new GrassField(5);
         List<Vector2d> positions = new ArrayList<>();
         positions.add(new Vector2d(2,2));
         positions.add(new Vector2d(3,4));
+
         IEngine enegine = new SimulationEngine(directions, map, positions);
         enegine.run();
         map.toString();

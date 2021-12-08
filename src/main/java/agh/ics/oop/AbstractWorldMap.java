@@ -8,10 +8,9 @@ abstract class AbstractWorldMap implements IWorldMap{
     protected List<Animal> animals = new ArrayList<>();
 
 
-
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position) && position.follows(new Vector2d(0,0));
+        return !isOccupiedA(position) && position.follows(new Vector2d(0,0));
     }
 
     @Override
@@ -23,12 +22,19 @@ abstract class AbstractWorldMap implements IWorldMap{
         return false;
     }
 
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        for (Animal animal : this.animals) {
-            if (animal.isAt(position)) {
+    public boolean isOccupiedA(Vector2d pos) {
+        for(Animal animal: this.animals) {
+            if(animal.isAt(pos)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        if(objectAt(position) != null) {
+            return true;
         }
         return false;
     }
