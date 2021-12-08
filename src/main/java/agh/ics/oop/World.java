@@ -1,8 +1,6 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class World {
     public static List<Direction> change(String[] args){
@@ -70,6 +68,9 @@ public class World {
 //            testowy.move(x);
 //            System.out.println(testowy.toString());
 //        }
+//        Map<Vector2d, Animal> animalss = new HashMap<>();
+//        animalss.put(new Vector2d(1,1), new Animal());
+//        System.out.println(animalss.get(new Vector2d(1,1)));
 
         System.out.println("----------------------");
         args = new String[]{"f", "b", "r", "l" ,"f", "f", "r", "r", "f", "f","f", "f","f", "f","f", "f"};

@@ -12,9 +12,9 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
         this.upperRight = new Vector2d(width, height);
     }
 
-    public List<Animal> getAnimals() {
-        return this.animals;
-    }
+//    public List<Animal> getAnimals() {
+//        return this.animals;
+//    }
 
     public String toString(){
 

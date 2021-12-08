@@ -32,9 +32,9 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
         }
     }
 
-    public List<Animal> getAn() {
-        return this.animals;
-    }
+//    public List<Animal> getAn() {
+//        return this.animals;
+//    }
 
     public String toString() {
 
@@ -42,8 +42,8 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
         for(Grass vec: poss){
             top = vec.getPosition().upperRight(top);
         }
-        for(Animal ani: animals){
-            top = ani.getPosition().upperRight(top);
+        for(Animal val: animals.values()){
+            top = val.getPosition().upperRight(top);
         }
         MapVisualizer visualizer = new MapVisualizer(this);
         System.out.println(visualizer.draw(new Vector2d(0,0), top));
