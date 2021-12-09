@@ -3,8 +3,8 @@
  import java.util.Objects;
 
  public class Vector2d {
-     public final int x;
-     public final int y;
+     public final Integer x;
+     public final Integer y;
 
      public Vector2d(int x, int y){
          this.x = x;

@@ -4,8 +4,8 @@ import java.util.*;
 
 
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
-//    protected List<Animal> animals = new ArrayList<>();
     protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected MapBoundry boundries = new MapBoundry();
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -17,9 +17,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
         if (canMoveTo(animal.getPosition())) {
             this.animals.put(animal.getPosition(),animal);
             animal.addObserver(this);
+            boundries.add(animal, animal.getPosition());
             return true;
         }
-        return false;
+        throw new IllegalArgumentException(animal.getPosition() + " is not legal move specification");
+        //return false;
     }
 
     public boolean isOccupiedA(Vector2d pos) {
@@ -48,5 +50,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
         Animal animal = this.animals.get(oldPosition);
         this.animals.remove(oldPosition);
         this.animals.put(newPosition, animal);
+        boundries.positionChanged(oldPosition, newPosition);
     }
 }

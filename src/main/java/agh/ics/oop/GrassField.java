@@ -27,27 +27,19 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
                 }
             }
             if(flag == 1) {
-                this.poss.add(new Grass(tmp));
+                Grass x = new Grass(tmp);
+                this.poss.add(x);
+                boundries.add(x, tmp);
             }
         }
     }
 
-//    public List<Animal> getAn() {
-//        return this.animals;
-//    }
-
     public String toString() {
+        Vector2d up = boundries.top();
+        Vector2d down = boundries.bottom();
 
-        Vector2d top = new Vector2d(0,0);
-        for(Grass vec: poss){
-            top = vec.getPosition().upperRight(top);
-        }
-        for(Animal val: animals.values()){
-            top = val.getPosition().upperRight(top);
-        }
         MapVisualizer visualizer = new MapVisualizer(this);
-        System.out.println(visualizer.draw(new Vector2d(0,0), top));
-        return " ";
+        return visualizer.draw(down, up);
     }
 
     @Override

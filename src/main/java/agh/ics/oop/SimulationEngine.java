@@ -14,7 +14,6 @@ public class SimulationEngine implements IEngine{
         this.starters = starters;
     }
 
-
     @Override
     public void run() {
 
