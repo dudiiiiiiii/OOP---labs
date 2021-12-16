@@ -17,6 +17,8 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
 
         for(int i=0; i< num; i++){
             int flag = 1;
+            int one = (int)((Math.random()*2)-1);
+            System.out.println(one);
             Vector2d tmp = new Vector2d(rand.nextInt((int) Math.sqrt(num*10)), rand.nextInt((int) Math.sqrt(num*10)));
             for(Grass grass: this.poss) {
                 if(grass.getPosition().equals(tmp)){

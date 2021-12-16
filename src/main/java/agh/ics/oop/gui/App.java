@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,7 @@ import java.util.Map;
 public class App extends Application {
     private IWorldMap map;
 
-    public GridPane createGrid(GridPane curr){
+    public GridPane createGrid(GridPane curr) throws FileNotFoundException {
 
         curr.setGridLinesVisible(true);
         Vector2d top = this.map.up();
@@ -46,18 +48,21 @@ public class App extends Application {
         }
 
         Map<Vector2d, Animal> animalList = this.map.getAnimalList();
-        System.out.println(bottom.x);
         for(Vector2d key: animalList.keySet()){
-            Label temp = new Label(animalList.get(key).toString());
-            curr.add(temp, -bottom.x+key.x+1, top.y-key.y+1);
-            curr.setHalignment(temp, HPos.CENTER);
+            //Label temp = new Label(animalList.get(key).toString());
+            GuiElementBox guiElementBox = new GuiElementBox(animalList.get(key));
+            guiElementBox.addLabel(animalList.get(key));
+            curr.add(guiElementBox.getVBox(), -bottom.x+key.x+1, top.y-key.y+1);
+            curr.setHalignment(guiElementBox.getVBox(), HPos.CENTER);
         }
 
         List<Grass> grass = this.map.getGrass();
         for(Grass gr: grass){
             Label temp = new Label("*");
-            curr.add(temp, -bottom.x + gr.getPosition().x+1, top.y-gr.getPosition().y+1);
-            curr.setHalignment(temp, HPos.CENTER);
+            GuiElementBox guiElementBox = new GuiElementBox(gr);
+            guiElementBox.addLabelGrass();
+            curr.add(guiElementBox.getVBox(), -bottom.x + gr.getPosition().x+1, top.y-gr.getPosition().y+1);
+            curr.setHalignment(guiElementBox.getVBox(), HPos.CENTER);
         }
 
         curr.getColumnConstraints().add(new ColumnConstraints(40));
@@ -69,11 +74,11 @@ public class App extends Application {
     @Override
     public void init(){
 
-        String[] args = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
-        //String[] args = getParameters().getRaw().toArray(new String[0]);
+        //String[] args = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        String[] args = getParameters().getRaw().toArray(new String[0]);
         List<MoveDirection> directions = new OptionsParser().parse(args);
 
-        IWorldMap map = new GrassField(5);
+        IWorldMap map = new GrassField(15);
         this.map = map;
 
         List<Vector2d> positions = new ArrayList<>();
