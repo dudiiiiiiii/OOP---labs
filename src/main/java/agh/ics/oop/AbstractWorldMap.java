@@ -6,10 +6,11 @@ import java.util.*;
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected MapBoundry boundries = new MapBoundry();
+    protected List<Grass> positions = new ArrayList<>();
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupiedA(position) && position.follows(new Vector2d(0,0));
+        return !isOccupiedA(position);
     }
 
     @Override
@@ -51,5 +52,25 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
         this.animals.remove(oldPosition);
         this.animals.put(newPosition, animal);
         boundries.positionChanged(oldPosition, newPosition);
+    }
+
+    @Override
+    public Vector2d up(){
+        return boundries.top();
+    }
+
+    @Override
+    public Vector2d down(){
+        return boundries.bottom();
+    }
+
+    @Override
+    public Map<Vector2d, Animal> getAnimalList(){
+        return this.animals;
+    }
+
+    @Override
+    public List<Grass> getGrass(){
+        return this.positions;
     }
 }

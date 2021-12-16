@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import java.util.*;
 
 public class World {
@@ -36,25 +39,10 @@ public class World {
     }
     public static void main(String[] args) {
         try {
-            System.out.println("System wystartował");
-            String[] xd = {"f", "f", "b", "r", "r", "l"};
-            List<Direction> xD = change(xd);
-            run(change(args));
-            System.out.println("System zakończył działanie");
-
             System.out.println("----------------------");
-            args = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
-            List<MoveDirection> directions = new OptionsParser().parse(args);
-            //sprawdź czy dobrze jak idzie w w lewo w dół daleko
 
-            IWorldMap map = new GrassField(5);
-            List<Vector2d> positions = new ArrayList<>();
-            positions.add(new Vector2d(2, 2));
-            positions.add(new Vector2d(3, 4));
 
-            IEngine enegine = new SimulationEngine(directions, map, positions);
-            enegine.run();
-            System.out.println(map.toString());
+            Application.launch(App.class, args);
         }
         catch(IllegalArgumentException argument) {
             System.out.println(argument);

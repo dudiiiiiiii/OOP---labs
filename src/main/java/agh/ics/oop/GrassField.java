@@ -1,10 +1,8 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Random;
 import java.lang.Math;
 
@@ -32,6 +30,17 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
                 boundries.add(x, tmp);
             }
         }
+
+        getGrass1();
+    }
+
+    public List<Grass> getGrass1(){
+        positions = this.poss;
+        return null;
+    }
+
+    public Map<Vector2d, Animal> getAn(){
+        return animals;
     }
 
     public String toString() {
@@ -41,6 +50,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap{
         MapVisualizer visualizer = new MapVisualizer(this);
         return visualizer.draw(down, up);
     }
+
 
     @Override
     public boolean isOccupied(Vector2d position) {
