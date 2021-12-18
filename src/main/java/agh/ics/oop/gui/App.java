@@ -2,6 +2,7 @@ package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
@@ -15,10 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class App extends Application {
+public class App extends Application implements IUpdateAnimals{
     private IWorldMap map;
+    private GridPane gridPane = new GridPane();
 
-    public GridPane createGrid(GridPane curr) throws FileNotFoundException {
+    public void createGrid(GridPane curr) throws FileNotFoundException {
+        curr.setGridLinesVisible(false);
+        curr.getColumnConstraints().clear();
+        curr.getRowConstraints().clear();
+        curr.getChildren().clear();
 
         curr.setGridLinesVisible(true);
         Vector2d top = this.map.up();
@@ -68,11 +74,11 @@ public class App extends Application {
         curr.getColumnConstraints().add(new ColumnConstraints(40));
         curr.getRowConstraints().add(new RowConstraints(40));
 
-        return curr;
+        this.gridPane = curr;
     }
 
     @Override
-    public void init(){
+    public void init() throws FileNotFoundException {
 
         //String[] args = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
         String[] args = getParameters().getRaw().toArray(new String[0]);
@@ -85,8 +91,18 @@ public class App extends Application {
         positions.add(new Vector2d(2, 2));
         positions.add(new Vector2d(3, 4));
 
-        IEngine enegine = new SimulationEngine(directions, map, positions);
-        enegine.run();
+        SimulationEngine engine = new SimulationEngine(directions, map, positions);
+        //enegine.run();
+
+        engine.setMoveDelay(1000);
+        engine.addObserver(this);
+        Thread engineThread = new Thread(engine);
+        createGrid(this.gridPane);
+        gridPane.setGridLinesVisible(true);
+        engineThread.start();
+
+
+
         System.out.println(map.toString());
     }
 
@@ -94,17 +110,21 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Label label = new Label("Zwierzak");
 
-        GridPane gridpane = new GridPane();
-        createGrid(gridpane);
-
-
-        Scene scene = new Scene(gridpane, 400, 400);
+        Scene scene = new Scene(this.gridPane, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
 
-
+    @Override
+    public void positionChanged() {
+        Platform.runLater(()-> {
+            try {
+                createGrid(this.gridPane);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }
