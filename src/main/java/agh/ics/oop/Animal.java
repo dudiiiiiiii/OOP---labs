@@ -34,6 +34,8 @@ public class Animal implements IMapElement {
         return this.position;
     }
 
+    public MapDirection getOrient() {return this.orientation;}
+
     public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }

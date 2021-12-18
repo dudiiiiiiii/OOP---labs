@@ -3,11 +3,13 @@ package agh.ics.oop.gui;
 import agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.control.Button;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 public class App extends Application implements IUpdateAnimals{
     private IWorldMap map;
     private GridPane gridPane = new GridPane();
+    private HBox hbox = new HBox();
 
     public void createGrid(GridPane curr) throws FileNotFoundException {
         curr.setGridLinesVisible(false);
@@ -64,7 +67,7 @@ public class App extends Application implements IUpdateAnimals{
 
         List<Grass> grass = this.map.getGrass();
         for(Grass gr: grass){
-            Label temp = new Label("*");
+            //Label temp = new Label("*");
             GuiElementBox guiElementBox = new GuiElementBox(gr);
             guiElementBox.addLabelGrass();
             curr.add(guiElementBox.getVBox(), -bottom.x + gr.getPosition().x+1, top.y-gr.getPosition().y+1);
@@ -79,10 +82,8 @@ public class App extends Application implements IUpdateAnimals{
 
     @Override
     public void init() throws FileNotFoundException {
-
         //String[] args = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
-        String[] args = getParameters().getRaw().toArray(new String[0]);
-        List<MoveDirection> directions = new OptionsParser().parse(args);
+
 
         IWorldMap map = new GrassField(15);
         this.map = map;
@@ -91,27 +92,47 @@ public class App extends Application implements IUpdateAnimals{
         positions.add(new Vector2d(2, 2));
         positions.add(new Vector2d(3, 4));
 
-        SimulationEngine engine = new SimulationEngine(directions, map, positions);
+        SimulationEngine engine = new SimulationEngine(new ArrayList<>(), map, positions);
         //enegine.run();
 
-        engine.setMoveDelay(1000);
+        engine.setMoveDelay(300);
         engine.addObserver(this);
         Thread engineThread = new Thread(engine);
-        createGrid(this.gridPane);
-        gridPane.setGridLinesVisible(true);
-        engineThread.start();
+        VBox buttons = new VBox();
+        Button startButton = new Button("Start");
+        hbox.getChildren().add(gridPane);
+        buttons.getChildren().add(startButton);
+        hbox.getChildren().add(buttons);
 
 
+        try {
+            startButton.setOnAction((event) -> {
+                String[] args = getParameters().getRaw().toArray(new String[0]);
+                List<MoveDirection> directions = new OptionsParser().parse(args);
+                engine.setMoves(directions);
+                try {
+                    createGrid(gridPane);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                gridPane.setGridLinesVisible(true);
+                engineThread.start();
 
-        System.out.println(map.toString());
+            });
+        }
+        catch(IllegalArgumentException except) {
+            System.out.println("Illegal");
+        }
     }
+
 
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Scene scene = new Scene(this.gridPane, 600, 600);
+        Scene scene = new Scene(hbox, 600, 600);
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -122,6 +143,7 @@ public class App extends Application implements IUpdateAnimals{
         Platform.runLater(()-> {
             try {
                 createGrid(this.gridPane);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

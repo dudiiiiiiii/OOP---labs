@@ -27,9 +27,10 @@ public class SimulationEngine implements IEngine,Runnable{
 
     public void setMoveDelay(int delay){ this.moveDelay = delay;}
 
+    public void setMoves(List<MoveDirection> list){ this.moves = list;}
+
     @Override
     public void run() {
-        System.out.println("Thread started");
         for(int i=0; i<this.starters.size(); i++) {
             Animal temp = new Animal(this.map, this.starters.get(i));
             if (this.map.place(temp)) {
@@ -42,7 +43,9 @@ public class SimulationEngine implements IEngine,Runnable{
         int k = this.animals.size();
 
         for(int i=0; i< n; i++) {
+
             this.animals.get(i%k).move(moves1.get(i));
+
             for(IUpdateAnimals observ: positionsObserver){
                 observ.positionChanged();
             }
